@@ -323,7 +323,7 @@ def updateBookMenu():
 	if userChoice == 1:
 		home() # upcoming function
 	elif userChoice == 2:
-		updateUser() # upcoming function
+		updateUser() 
 	elif userChoice == 3:
 		exiting()
 	else:
@@ -565,3 +565,221 @@ def returnBook():
         print("--------------------------")
         returnBookMenu()
 
+# Function to display the add user menu and handle user choices
+def addUserMenu():
+    print("1. Home")
+    print("2. Back")
+    print("3. Exit")
+    userChoice = int(input("Enter your Choice to Continue : "))
+    print("--------------------------")
+
+    if userChoice == 1:
+        home() # upcoming function
+    elif userChoice == 2:
+        modifyUser() # upcoming function
+    elif userChoice == 3:
+        exiting()
+    else:
+        validOption()
+
+# Function to add a new user
+def addUser():
+    print("--------------------------")
+    print("Add User")
+    print("--------------------------")
+    userId = int(input("Enter the User ID : "))
+    userName = input("Enter the User Name : ")
+    userPhoneNumber = input("Enter the User Phone Number : ")
+    userEmailId = input("Enter the User Email ID : ")
+    password = input("Enter the User Password : ")
+    print("--------------------------")
+
+    c.execute("SELECT userId FROM users")
+    result = c.fetchall()
+    db.commit()
+
+    if (userId,) in result:
+        print(f'The user with user number "{userId}" is already enrolled in the digital library.')
+        print("--------------------------")
+        addUserMenu()
+    else:
+        c.execute("INSERT INTO users (userId, userName, phoneNumber, emailId, password) VALUES (%s, %s, %s, %s, %s)",
+                  (userId, userName, userPhoneNumber, userEmailId, password))
+        db.commit()
+
+        print("--------------------------")
+        print("User added successfully!")
+        print("--------------------------")
+        addUserMenu()
+
+# Function to display the delete user menu and handle user choices
+def deleteUserMenu():
+    print("1. Home")
+    print("2. Back")
+    print("3. Exit")
+    userChoice = int(input("Enter your Choice to Continue : "))
+    print("--------------------------")
+
+    if userChoice == 1:
+        home() # upcoming function
+    elif userChoice == 2:
+        modifyUser() # upcoming function
+    elif userChoice == 3:
+        exiting()
+    else:
+        validOption()
+
+# Function to delete a user
+def deleteUser():
+    print("--------------------------")
+    print("Delete User")
+    print("--------------------------")
+    userId = int(input("Enter the User ID : "))
+    choice = input("Are you sure to delete the User? (Yes/No) : ")
+    print("--------------------------")
+
+    c.execute("SELECT userId FROM users")
+    result = c.fetchall()
+    db.commit()
+
+    if choice.lower() in ["yes", "y"]:
+        if (userId,) in result:
+            c.execute("DELETE FROM users WHERE userId=%s", (userId,))
+            db.commit()
+
+            print("User deleted successfully!")
+            print("--------------------------")
+            deleteUserMenu()
+        else:
+            print(f'The user with user id "{userId}" is not enrolled in the digital library.')
+            print("--------------------------")
+            deleteUserMenu()
+    elif choice.lower() in ["no", "n"]:
+        print("--------------------------")
+        print("User Not Deleted!")
+        print("--------------------------")
+        deleteUserMenu()
+    else:
+        validOption()
+
+# Function to display the update user menu and handle user choices
+def updateUserMenu():
+    print("1. Home")
+    print("2. Back")
+    print("3. Exit")
+    userChoice = int(input("Enter your Choice to Continue : "))
+    print("--------------------------")
+
+    if userChoice == 1:
+        home() # upcoming function
+    elif userChoice == 2:
+        updateUser()
+    elif userChoice == 3:
+        exiting()
+    else:
+        validOption()
+
+# Helper function to display if a user does not exist
+def notUser(userId):
+    print(f'The user with user id "{userId}" is not enrolled in the digital library.')
+    print("--------------------------")
+    updateUserMenu()
+
+# Function to update user details
+def updateUser():
+    print("--------------------------")
+    print("Update User Details")
+    print("--------------------------")
+    print("1. Update the User ID")
+    print("2. Update the User Name")
+    print("3. Update the User Phone Number")
+    print("4. Update the User Email ID")
+    print("5. Update the User Password")
+    print("6. Home")
+    print("7. Back")
+    print("8. Exit")
+    userChoice = int(input("Enter your Choice to Continue : "))
+    print("--------------------------")
+
+    c.execute("SELECT userId FROM users")
+    result = c.fetchall()
+    db.commit()
+
+    if userChoice == 1:
+        currentUserId = int(input("Enter the Current User ID : "))
+        newUserId = int(input("Enter the New User ID : "))
+
+        if (currentUserId,) in result:
+            c.execute("UPDATE users SET userId=%s WHERE userId=%s", (newUserId, currentUserId))
+            db.commit()
+
+            print("User ID changed Successfully!")
+            print("--------------------------")
+            updateUserMenu()
+        else:
+            notUser(currentUserId)
+
+    elif userChoice == 2:
+        userId = int(input("Enter the User ID : "))
+        newUserName = input("Enter the New User Name : ")
+
+        if (userId,) in result:
+            c.execute("UPDATE users SET userName=%s WHERE userId=%s", (newUserName, userId))
+            db.commit()
+
+            print("User Name changed Successfully!")
+            print("--------------------------")
+            updateUserMenu()
+        else:
+            notUser(userId)
+
+    elif userChoice == 3:
+        userId = int(input("Enter the Current User ID : "))
+        newPhoneNumber = input("Enter the New Phone Number : ")
+
+        if (userId,) in result:
+            c.execute("UPDATE users SET phoneNumber=%s WHERE userId=%s", (newPhoneNumber, userId))
+            db.commit()
+
+            print("User Phone Number changed Successfully!")
+            print("--------------------------")
+            updateUserMenu()
+        else:
+            notUser(userId)
+
+    elif userChoice == 4:
+        userId = int(input("Enter the Current User ID : "))
+        newEmailId = input("Enter the New Email ID : ")
+
+        if (userId,) in result:
+            c.execute("UPDATE users SET emailId=%s WHERE userId=%s", (newEmailId, userId))
+            db.commit()
+
+            print("User Email ID changed Successfully!")
+            print("--------------------------")
+            updateUserMenu()
+        else:
+            notUser(userId)
+
+    elif userChoice == 5:
+        userId = int(input("Enter the Current User ID : "))
+        newPassword = input("Enter the New Password : ")
+
+        if (userId,) in result:
+            c.execute("UPDATE users SET password=%s WHERE userId=%s", (newPassword, userId))
+            db.commit()
+
+            print("User Password changed Successfully!")
+            print("--------------------------")
+            updateUserMenu()
+        else:
+            notUser(userId)
+
+    elif userChoice == 6:
+        home() # upcoming function
+    elif userChoice == 7:
+        modifyUser() # upcoming function
+    elif userChoice == 8:
+        exiting()
+    else:
+        validOption()
