@@ -783,3 +783,235 @@ def updateUser():
         exiting()
     else:
         validOption()
+
+
+# Function to modify users (add, delete, update)
+def modifyUser():
+    print("--------------------------")
+    print("Modify User")
+    print("--------------------------")
+    print("1. Add User")
+    print("2. Delete User")
+    print("3. Update User Details")
+    print("4. Home")
+    print("5. Back")
+    print("6. Exit")
+    userChoice = int(input("Enter your Choice to Continue : "))
+    print("--------------------------")
+
+    if userChoice == 1:
+        addUser()
+    elif userChoice == 2:
+        deleteUser()
+    elif userChoice == 3:
+        updateUser()
+    elif userChoice == 4:
+        home()
+    elif userChoice == 5:
+        admin()
+    elif userChoice == 6:
+        exiting()
+    else:
+        validOption()
+
+# Display users menu options
+def displayUsersMenu():
+    print("1. Home")
+    print("2. Back")
+    print("3. Exit")
+    userChoice = int(input("Enter your Choice to Continue : "))
+
+    # User choices handling
+    if userChoice == 1:
+        home()
+    elif userChoice == 2:
+        admin()
+    elif userChoice == 3:
+        exiting()
+    else:
+        validOption()
+
+# Function to display the users enrolled in the library
+def displayUsers():
+    print("--------------------------")
+    print("Display Users")
+    print("--------------------------")
+    c.execute("SELECT * FROM users ORDER BY userId")
+    result = c.fetchall()
+    db.commit()
+
+    if result:
+        print("Users enrolled in the Digital Library are :")
+        i = 0
+        for row in result:
+            i += 1
+            r = length(i)
+            print(f"{i}. User ID : {row[0]}")
+            print(" " * r + f"User Name : {row[1]}")
+            print(" " * r + f"Phone Number : {row[2]}")
+            print(" " * r + f"Email ID : {row[3]}")
+            print(" " * r + f"Admin Status : {row[5]}")
+            print("--------------------------")
+        displayUsersMenu()
+    else:
+        print("No users found.")
+        print("--------------------------")
+        displayUsersMenu()
+
+# Function to display user search options
+def searchUsersMenu():
+    print("1. Home")
+    print("2. Back")
+    print("3. Exit")
+    userChoice = int(input("Enter your Choice to Continue : "))
+
+    if userChoice == 1:
+        home()
+    elif userChoice == 2:
+        searchUsers()
+    elif userChoice == 3:
+        exiting()
+    else:
+        validOption()
+
+# Function to search users by User ID
+def searchUsersbyId():
+    print("--------------------------")
+    print("Search Users by User ID")
+    print("--------------------------")
+    userId = int(input("Enter the User ID to search the User : "))
+
+    c.execute("SELECT * FROM users WHERE userId=%s", (userId,))
+    result = c.fetchall()
+    db.commit()
+
+    if result:
+        print(f'User enrolled in the Digital Library with the User ID "{userId}" is :')
+        i = 0
+        for row in result:
+            i += 1
+            r = length(i)
+            print(f"{i}. User ID : {row[0]}")
+            print(" " * r + f"User Name : {row[1]}")
+            print(" " * r + f"Phone Number : {row[2]}")
+            print(" " * r + f"Email ID : {row[3]}")
+            print(" " * r + f"Admin Status : {row[5]}")
+            print("--------------------------")
+        searchUsersMenu()
+    else:
+        print(f'No user found with the user id "{userId}".')
+        print("--------------------------")
+        searchUsersMenu()
+
+# Function to search users by keyword
+def searchUsersbyKeyword():
+    print("--------------------------")
+    print("Search Users by Keyword")
+    print("--------------------------")
+    keyword = input("Enter a Keyword to search Users : ")
+
+    c.execute("SELECT * FROM users WHERE userName LIKE '%{}%' ORDER BY userId".format(keyword))
+    result = c.fetchall()
+    db.commit()
+
+    if result:
+        print(f'Users enrolled in the Digital Library with the Keyword "{keyword}" are :')
+        i = 0
+        for row in result:
+            i += 1
+            r = length(i)
+            print(f"{i}. User ID : {row[0]}")
+            print(" " * r + f"User Name : {row[1]}")
+            print(" " * r + f"Phone Number : {row[2]}")
+            print(" " * r + f"Email ID : {row[3]}")
+            print(" " * r + f"Admin Status : {row[5]}")
+            print("--------------------------")
+        searchUsersMenu()
+    else:
+        print(f'No users found with the keyword "{keyword}".')
+        print("--------------------------")
+        searchUsersMenu()
+
+# Function to search users
+def searchUsers():
+    print("--------------------------")
+    print("Search Users")
+    print("--------------------------")
+    print("1. Search by User ID")
+    print("2. Search by Keyword")
+    print("3. Home")
+    print("4. Back")
+    print("5. Exit")
+    userChoice = int(input("Enter your Choice to Continue : "))
+    print("--------------------------")
+
+    if userChoice == 1:
+        searchUsersbyId()
+    elif userChoice == 2:
+        searchUsersbyKeyword()
+    elif userChoice == 3:
+        home()
+    elif userChoice == 4:
+        admin()
+    elif userChoice == 5:
+        exiting()
+    else:
+        validOption()
+
+# Function to modify books (add, delete, update)
+def modifyBook():
+    print("--------------------------")
+    print("Modify Book")
+    print("--------------------------")
+    print("1. Add Book")
+    print("2. Delete Book")
+    print("3. Update Book Details")
+    print("4. Home")
+    print("5. Back")
+    print("6. Exit")
+    userChoice = int(input("Enter your Choice to Continue : "))
+    print("--------------------------")
+
+    if userChoice == 1:
+        addBook()
+    elif userChoice == 2:
+        deleteBook()
+    elif userChoice == 3:
+        updateBook()
+    elif userChoice == 4:
+        home()
+    elif userChoice == 5:
+        admin()
+    elif userChoice == 6:
+        exiting()
+    else:
+        validOption()
+
+# Function to manage notes
+def notes():
+    print("--------------------------")
+    print("Notes")
+    print("--------------------------")
+    print("1. Modify Note")
+    print("2. Display Notes")
+    print("3. Search Notes")
+    print("4. Home")
+    print("5. Back")
+    print("6. Exit")
+    userChoice = int(input("Enter your Choice to Continue : "))
+    print("--------------------------")
+
+    if userChoice == 1:
+        modifyNote()
+    elif userChoice == 2:
+        displayNotes()
+    elif userChoice == 3:
+        searchNotes()
+    elif userChoice == 4:
+        home()
+    elif userChoice == 5:
+        user()
+    elif userChoice == 6:
+        exiting()
+    else:
+        validOption()
