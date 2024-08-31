@@ -17,4 +17,7 @@ here is the database configuration i made and have thought of using....
 ### users table
 ![image](https://github.com/user-attachments/assets/ce4170a1-bff7-49ce-8fce-53aa166ed0fc)
 
-i'm also starting code in session 1.
+i'm also starting code in session 1.  
+
+A rough idea of all the functions is given in the image below:
+![pic](https://github.com/user-attachments/assets/edfdc4f6-99da-4c2a-8e34-2a0ffb6e04a3)
