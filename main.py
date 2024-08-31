@@ -45,7 +45,7 @@ def userMenu():
     print("--------------------------")
 
     if userChoice == 1:
-        addNote() # upcoming function
+        addNote()
     elif userChoice == 2:
         home() # upcoming function
     elif userChoice == 3:
@@ -114,7 +114,7 @@ def searchBooksMenu():
     userChoice = int(input("Enter your Choice to Continue : "))
 
     if userChoice == 1:
-        addNote() # upcoming function
+        addNote()
     elif userChoice == 2:
         home() # upcoming function
     elif userChoice == 3:
@@ -224,7 +224,7 @@ def addBookMenu():
 	if userChoice == 1:
 		home() # upcoming function
 	elif userChoice == 2:
-		modifyBook() # upcoming function
+		modifyBook()
 	elif userChoice == 3:
 		exiting()
 	else:
@@ -412,7 +412,7 @@ def updateBook():
     elif userChoice == 5:
         home() # upcoming function
     elif userChoice == 6:
-        modifyBook() # upcoming function
+        modifyBook()
     elif userChoice == 7:
         exiting()
     else:
@@ -576,7 +576,7 @@ def addUserMenu():
     if userChoice == 1:
         home() # upcoming function
     elif userChoice == 2:
-        modifyUser() # upcoming function
+        modifyUser()
     elif userChoice == 3:
         exiting()
     else:
@@ -623,7 +623,7 @@ def deleteUserMenu():
     if userChoice == 1:
         home() # upcoming function
     elif userChoice == 2:
-        modifyUser() # upcoming function
+        modifyUser()
     elif userChoice == 3:
         exiting()
     else:
@@ -778,7 +778,7 @@ def updateUser():
     elif userChoice == 6:
         home() # upcoming function
     elif userChoice == 7:
-        modifyUser() # upcoming function
+        modifyUser()
     elif userChoice == 8:
         exiting()
     else:
@@ -806,9 +806,9 @@ def modifyUser():
     elif userChoice == 3:
         updateUser()
     elif userChoice == 4:
-        home()
+        home() # upcoming function
     elif userChoice == 5:
-        admin()
+        admin() # upcoming function
     elif userChoice == 6:
         exiting()
     else:
@@ -823,9 +823,9 @@ def displayUsersMenu():
 
     # User choices handling
     if userChoice == 1:
-        home()
+        home() # upcoming function
     elif userChoice == 2:
-        admin()
+        admin() # upcoming function
     elif userChoice == 3:
         exiting()
     else:
@@ -866,7 +866,7 @@ def searchUsersMenu():
     userChoice = int(input("Enter your Choice to Continue : "))
 
     if userChoice == 1:
-        home()
+        home() # upcoming function
     elif userChoice == 2:
         searchUsers()
     elif userChoice == 3:
@@ -950,9 +950,9 @@ def searchUsers():
     elif userChoice == 2:
         searchUsersbyKeyword()
     elif userChoice == 3:
-        home()
+        home() # upcoming function
     elif userChoice == 4:
-        admin()
+        admin() # upcoming function
     elif userChoice == 5:
         exiting()
     else:
@@ -979,9 +979,9 @@ def modifyBook():
     elif userChoice == 3:
         updateBook()
     elif userChoice == 4:
-        home()
+        home() # upcoming function
     elif userChoice == 5:
-        admin()
+        admin() # upcoming function
     elif userChoice == 6:
         exiting()
     else:
@@ -1004,13 +1004,239 @@ def notes():
     if userChoice == 1:
         modifyNote()
     elif userChoice == 2:
-        displayNotes()
+        displayNotes() # upcoming function
     elif userChoice == 3:
-        searchNotes()
+        searchNotes() # upcoming function
     elif userChoice == 4:
-        home()
+        home() # upcoming function
     elif userChoice == 5:
-        user()
+        user() # upcoming function
+    elif userChoice == 6:
+        exiting()
+    else:
+        validOption()
+
+# Function to display the add note menu and handle user choices
+def addNoteMenu():
+    print("1. Home")
+    print("2. Back")
+    print("3. Exit")
+    userChoice = int(input("Enter your Choice to Continue : "))
+    print("--------------------------")
+
+    if userChoice == 1:
+        home() # upcoming function
+    elif userChoice == 2:
+        modifyNote()
+    elif userChoice == 3:
+        exiting()
+    else:
+        validOption()
+
+# Function to add a note
+def addNote():
+    print("--------------------------")
+    print("Add Note")
+    print("--------------------------")
+    noteNumber = int(input("Enter the Note Number : "))
+    noteTitle = input("Enter the Note Title : ")
+    noteDescription = input("Enter the Note Description : ")
+    print("--------------------------")
+
+    c.execute("SELECT noteNumber FROM notes WHERE userId=%s", (USERID,))
+    result = c.fetchall()
+    db.commit()
+
+    if (noteNumber,) in result:
+        print(f'The note of note number "{noteNumber}" already exists in the digital library.')
+        print("--------------------------")
+        addNoteMenu()
+    else:
+        c.execute(
+            "INSERT INTO notes (userId, noteNumber, noteTitle, noteDescription, updateDate, updateTime) VALUES (%s, %s, %s, %s, CURRENT_DATE, CURRENT_TIME)",
+            (USERID, noteNumber, noteTitle, noteDescription),
+        )
+        db.commit()
+
+        print(f'The note of note number "{noteNumber}" is added successfully.')
+        print("--------------------------")
+        addNoteMenu()
+
+# Function to display delete note menu and handle user choices
+def deleteNoteMenu():
+    print("1. Home")
+    print("2. Back")
+    print("3. Exit")
+    userChoice = int(input("Enter your Choice to Continue : "))
+    print("--------------------------")
+
+    if userChoice == 1:
+        home() # upcoming function
+    elif userChoice == 2:
+        modifyNote()
+    elif userChoice == 3:
+        exiting()
+    else:
+        validOption()
+
+# Function to delete a note
+def deleteNote():
+    print("--------------------------")
+    print("Delete Note")
+    print("--------------------------")
+    noteNumber = int(input("Enter the Note Number to Delete the Note : "))
+    choice = input("Are you sure to delete the Note? (Yes/No) : ")
+    print("--------------------------")
+
+    c.execute("SELECT noteNumber FROM notes WHERE userId=%s", (USERID,))
+    result = c.fetchall()
+    db.commit()
+
+    if choice.lower() in ["yes", "y"]:
+        if (noteNumber,) in result:
+            c.execute("DELETE FROM notes WHERE userId=%s AND noteNumber=%s", (USERID, noteNumber))
+            db.commit()
+
+            print(f'The note of note number "{noteNumber}" is deleted successfully.')
+            print("--------------------------")
+            deleteNoteMenu()
+        else:
+            print(f'The note of note number "{noteNumber}" does not exist in the digital library.')
+            print("--------------------------")
+            deleteNoteMenu()
+    elif choice.lower() in ["no", "n"]:
+        print("--------------------------")
+        print("Note Not Deleted!")
+        print("--------------------------")
+        deleteNoteMenu()
+    else:
+        validOption()
+
+# Function to display update notes menu and handle user choices
+def updateNotesMenu():
+    print("1. Home")
+    print("2. Back")
+    print("3. Exit")
+    userChoice = int(input("Enter your Choice to Continue : "))
+    print("--------------------------")
+
+    if userChoice == 1:
+        home() # upcoming function
+    elif userChoice == 2:
+        updateNotes()
+    elif userChoice == 3:
+        exiting()
+    else:
+        validOption()
+
+# Helper function to indicate a missing note
+def notNoteNumber(noteNumber):
+    print(f'The note of note number "{noteNumber}" does not exist in the digital library.')
+    print("--------------------------")
+    updateNotesMenu()
+
+# Function to update notes
+def updateNotes():
+    print("--------------------------")
+    print("Update Notes")
+    print("--------------------------")
+    print("1. Update the Note Number")
+    print("2. Update the Note Title")
+    print("3. Update the Note Description")
+    print("4. Home")
+    print("5. Back")
+    print("6. Exit")
+    userChoice = int(input("Enter your Choice to Continue : "))
+    print("--------------------------")
+
+    c.execute("SELECT noteNumber FROM notes WHERE userId=%s", (USERID,))
+    result = c.fetchall()
+    db.commit()
+
+    if userChoice == 1:
+        currentNoteNumber = int(input("Enter the Current Note Number : "))
+        newNoteNumber = int(input("Enter the New Note Number : "))
+
+        if (currentNoteNumber,) in result:
+            c.execute(
+                "UPDATE notes SET noteNumber=%s, updateDate=CURRENT_DATE, updateTime=CURRENT_TIME WHERE userId=%s AND noteNumber=%s",
+                (newNoteNumber, USERID, currentNoteNumber),
+            )
+            db.commit()
+
+            print("Note Number changed Successfully!")
+            print("--------------------------")
+            updateNotesMenu()
+        else:
+            notNoteNumber(currentNoteNumber)
+
+    elif userChoice == 2:
+        noteNumber = int(input("Enter the Note Number : "))
+        newTitle = input("Enter the New Note Title : ")
+
+        if (noteNumber,) in result:
+            c.execute(
+                "UPDATE notes SET noteTitle=%s, updateDate=CURRENT_DATE, updateTime=CURRENT_TIME WHERE userId=%s AND noteNumber=%s",
+                (newTitle, USERID, noteNumber),
+            )
+            db.commit()
+
+            print("Note Title changed Successfully!")
+            print("--------------------------")
+            updateNotesMenu()
+        else:
+            notNoteNumber(noteNumber)
+
+    elif userChoice == 3:
+        noteNumber = int(input("Enter the Note Number : "))
+        newDescription = input("Enter the New Note Description : ")
+
+        if (noteNumber,) in result:
+            c.execute(
+                "UPDATE notes SET noteDescription=%s, updateDate=CURRENT_DATE, updateTime=CURRENT_TIME WHERE userId=%s AND noteNumber=%s",
+                (newDescription, USERID, noteNumber),
+            )
+            db.commit()
+
+            print("Note Description changed Successfully!")
+            print("--------------------------")
+            updateNotesMenu()
+        else:
+            notNoteNumber(noteNumber)
+
+    elif userChoice == 4:
+        home() # upcoming function
+    elif userChoice == 5:
+        modifyNote()
+    elif userChoice == 6:
+        exiting()
+    else:
+        validOption()
+
+# Function to modify notes
+def modifyNote():
+    print("--------------------------")
+    print("Modify Note")
+    print("--------------------------")
+    print("1. Add Note")
+    print("2. Delete Note")
+    print("3. Update Note Details")
+    print("4. Home")
+    print("5. Back")
+    print("6. Exit")
+    userChoice = int(input("Enter your Choice to Continue : "))
+    print("--------------------------")
+
+    if userChoice == 1:
+        addNote()
+    elif userChoice == 2:
+        deleteNote()
+    elif userChoice == 3:
+        updateNotes()
+    elif userChoice == 4:
+        home() # upcoming function
+    elif userChoice == 5:
+        notes()
     elif userChoice == 6:
         exiting()
     else:
