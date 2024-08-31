@@ -1,4 +1,5 @@
 import mysql.connector
+from datetime import datetime
 
 db = mysql.connector.connect(
     host="localhost",
@@ -332,3 +333,235 @@ def notBook(bookId):
 	print(f'The book of book id "{bookId}" does not available in the digital library.')
 	print("--------------------------")
 	updateBookMenu()
+
+# Function to update book details
+def updateBook():
+    print("--------------------------")
+    print("Update Book Details")
+    print("--------------------------")
+    print("1. Update the Book ID")
+    print("2. Update the Book Name")
+    print("3. Update the Book Publication Year")
+    print("4. Update the Book Author Name")
+    print("5. Home")
+    print("6. Back")
+    print("7. Exit")
+    userChoice = int(input("Enter your Choice to Continue : "))
+    print("--------------------------")
+
+    c.execute("SELECT bookId FROM books")
+    result = c.fetchall()
+    db.commit()
+
+    if userChoice == 1:
+        currentBookId = int(input("Enter the Current Book ID : "))
+        newBookId = int(input("Enter the New Book ID : "))
+
+        if (currentBookId,) in result:
+            c.execute("UPDATE books SET bookId=%s WHERE bookId=%s", (newBookId, currentBookId))
+            db.commit()
+
+            print("Book ID changed Successfully!")
+            print("--------------------------")
+            updateBookMenu()
+        else:
+            notBook(currentBookId)
+
+    elif userChoice == 2:
+        bookId = int(input("Enter the Book ID : "))
+        newBookName = input("Enter the New Book Name : ")
+
+        if (bookId,) in result:
+            c.execute("UPDATE books SET bookName=%s WHERE bookId=%s", (newBookName, bookId))
+            db.commit()
+
+            print("Book Name changed Successfully!")
+            print("--------------------------")
+            updateBookMenu()
+        else:
+            notBook(bookId)
+
+    elif userChoice == 3:
+        bookId = int(input("Enter the Current Book ID : "))
+        newPublicationYear = input("Enter the New Publication Year : ")
+
+        if (bookId,) in result:
+            c.execute("UPDATE books SET publicationYear=%s WHERE bookId=%s", (newPublicationYear, bookId))
+            db.commit()
+
+            print("Book Publication Year changed Successfully!")
+            print("--------------------------")
+            updateBookMenu()
+        else:
+            notBook(bookId)
+
+    elif userChoice == 4:
+        bookId = int(input("Enter the Current Book ID : "))
+        newAuthor = input("Enter the New Author Name : ")
+
+        if (bookId,) in result:
+            c.execute("UPDATE books SET author=%s WHERE bookId=%s", (newAuthor, bookId))
+            db.commit()
+
+            print("Book Author Name changed Successfully!")
+            print("--------------------------")
+            updateBookMenu()
+        else:
+            notBook(bookId)
+
+    elif userChoice == 5:
+        home() # upcoming function
+    elif userChoice == 6:
+        modifyBook() # upcoming function
+    elif userChoice == 7:
+        exiting()
+    else:
+        validOption()
+
+# Function to display the issue book menu and handle user choices
+def issueBookMenu():
+    print("1. Home")
+    print("2. Back")
+    print("3. Exit")
+    userChoice = int(input("Enter your Choice to Continue : "))
+    print("--------------------------")
+    
+    # User choices handling
+    if userChoice == 1:
+        home() # upcoming function
+    elif userChoice == 2:
+        admin() # upcoming function
+    elif userChoice == 3:
+        exiting()
+    else:
+        validOption()   
+
+# Function to issue a book
+def issueBook():
+    print("--------------------------")
+    print("Issue Book")
+    print("--------------------------")
+    bookId = int(input("Enter the Book ID to be Issued: "))
+    userId = int(input("Enter the User ID to whom Book will be Issued: "))
+
+    c.execute("SELECT userId FROM users")
+    result1 = c.fetchall()
+    c.execute("SELECT bookId FROM books")
+    result2 = c.fetchall()
+    c.execute("SELECT issueStatus FROM books WHERE bookId=%s", (bookId,))
+    result3 = c.fetchall()
+    db.commit()
+
+    if (userId,) in result1:
+        if (bookId,) in result2:
+            if result3[0][0] == "not issued":
+                c.execute("UPDATE books SET issueDate = CURRENT_DATE WHERE bookId = %s", (bookId,))
+                c.execute("UPDATE books SET issueTime = CURRENT_TIME WHERE bookId = %s", (bookId,))
+                c.execute("UPDATE books SET issueStatus = 'issued' WHERE bookId = %s", (bookId,))
+                c.execute("UPDATE books SET issuedUserId = %s WHERE bookId = %s", (userId, bookId))
+                db.commit()
+                c.execute("select issuedUserId,bookName,issueDate,issueTime from books where bookId=%s",(bookId,),)
+                result = c.fetchall()
+                c.execute("INSERT INTO issuedBooksDetails (userId,bookId,bookName,issueDate,issueTime) VALUES (%s, %s, %s, %s, %s)",(result[0][0], bookId, result[0][1], result[0][2],result[0][3]),)
+                db.commit()
+
+                print(f'Book of Book Id "{bookId}" is issued successfully to the User of User Id "{userId}".')
+                print("--------------------------")
+                returnPolicy()
+                issueBookMenu()
+            else:
+                print(f'The book of book id "{bookId}" is already issued by another user.')
+                print("--------------------------")
+                issueBookMenu()
+        else:
+            print(f"Book with book id {bookId} does not exist in the digital library.")
+            print("--------------------------")
+            issueBookMenu()
+    else:
+        print(f"User with user id {userId} does not exist in the digital library.")
+        print("--------------------------")
+        issueBookMenu()
+
+# Function to display the return book menu and handle user choices
+def returnBookMenu():
+    print("1. Home")
+    print("2. Back")
+    print("3. Exit")
+    userChoice = int(input("Enter your Choice to Continue : "))
+    print("--------------------------")
+
+    if userChoice == 1:
+        home() # upcoming function
+    elif userChoice == 2:
+        admin() # upcoming function
+    elif userChoice == 3:
+        exiting()
+    else:
+        validOption()
+
+# Function to return a book
+def returnBook():
+    print("--------------------------")
+    print("Return Book")
+    print("--------------------------")
+    bookId = int(input("Enter the Book ID to be Returned: "))
+
+    c.execute("SELECT bookId FROM books")
+    result1 = c.fetchall()
+    c.execute("SELECT issueStatus FROM books WHERE bookId=%s", (bookId,))
+    result2 = c.fetchall()
+    db.commit()
+
+    if (bookId,) in result1:
+        if result2[0][0] == "issued":
+            c.execute("UPDATE books SET returnDate = CURRENT_DATE WHERE bookId = %s", (bookId,))
+            c.execute("UPDATE books SET returnTime = CURRENT_TIME WHERE bookId = %s", (bookId,))
+            c.execute("UPDATE books SET issueStatus = 'not issued' WHERE bookId = %s", (bookId,))
+            db.commit()
+
+            c.execute("SELECT issuedUserId, returnDate, returnTime FROM books WHERE bookId=%s", (bookId,))
+            result = c.fetchall()
+            c.execute("UPDATE issuedBooksDetails SET returnDate = %s, returnTime = %s WHERE userId = %s AND bookId = %s",
+                      (result[0][1], result[0][2], result[0][0], bookId))
+            db.commit()
+
+            c.execute("UPDATE books SET issuedUserId = NULL WHERE bookId = %s", (bookId,))
+            db.commit()
+
+            print(f'The book of book id "{bookId}" is returned successfully.')
+
+            c.execute("SELECT issueDate FROM books WHERE bookId = %s", (bookId,))
+            issueDate = c.fetchall()
+            c.execute("SELECT returnDate FROM books WHERE bookId = %s", (bookId,))
+            returnDate = c.fetchall()
+            db.commit()
+
+            d1 = datetime.strptime(f"{issueDate[0][0]}", "%Y-%m-%d")
+            d2 = datetime.strptime(f"{returnDate[0][0]}", "%Y-%m-%d")
+            dateDifference = d2 - d1
+
+            if dateDifference.days > 14:
+                extraDays = dateDifference.days - 14
+                fine = extraDays * 5
+                print("Fine(in Rs.) : ", fine)
+                c.execute("UPDATE issuedBooksDetails SET fineInRs=%s WHERE userId=%s AND bookId=%s",
+                          (fine, result[0][0], bookId))
+                db.commit()
+            else:
+                fine = 0
+                print("Fine(in Rs.) : ", fine)
+                c.execute("UPDATE issuedBooksDetails SET fineInRs=%s WHERE userId=%s AND bookId=%s",
+                          (fine, result[0][0], bookId))
+                db.commit()
+
+            print("--------------------------")
+            returnBookMenu()
+        else:
+            print(f'The book of book id "{bookId}" is not issued by any user.')
+            print("--------------------------")
+            returnBookMenu()
+    else:
+        print(f"Book with book id {bookId} does not exist in the digital library.")
+        print("--------------------------")
+        returnBookMenu()
+
