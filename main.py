@@ -1,4 +1,5 @@
 import mysql.connector
+import pyfiglet
 from datetime import datetime
 
 db = mysql.connector.connect(
@@ -47,9 +48,9 @@ def userMenu():
     if userChoice == 1:
         addNote()
     elif userChoice == 2:
-        home() # upcoming function
+        home()
     elif userChoice == 3:
-        user() # upcoming function
+        user()
     elif userChoice == 4:
         exiting()
     else:
@@ -105,18 +106,19 @@ def displayBooks():
         print("--------------------------")
         userMenu()
 
-# Search books menu options
+# Function to display books search menu
 def searchBooksMenu():
     print("1. Add Note")
     print("2. Home")
     print("3. Back")
     print("4. Exit")
     userChoice = int(input("Enter your Choice to Continue : "))
+    print("--------------------------")
 
     if userChoice == 1:
         addNote()
     elif userChoice == 2:
-        home() # upcoming function
+        home()
     elif userChoice == 3:
         searchBooks()
     elif userChoice == 4:
@@ -204,9 +206,9 @@ def searchBooks():
     elif userChoice == 2:
         searchBooksbyKeyword()
     elif userChoice == 3:
-        home() # upcoming function
+        home()
     elif userChoice == 4:
-        user() # upcoming function
+        user()
     elif userChoice == 5:
         exiting()
     else:
@@ -222,7 +224,7 @@ def addBookMenu():
 	print("--------------------------")
     # User choices handling
 	if userChoice == 1:
-		home() # upcoming function
+		home()
 	elif userChoice == 2:
 		modifyBook()
 	elif userChoice == 3:
@@ -270,9 +272,9 @@ def deleteBookMenu():
 
 	# User choices handling
 	if userChoice == 1:
-		home() # upcoming function
+		home()
 	elif userChoice == 2:
-		admin() # upcoming function
+		admin()
 	elif userChoice == 3:
 		exiting()
 	else:
@@ -321,9 +323,9 @@ def updateBookMenu():
 
 	# User choices handling
 	if userChoice == 1:
-		home() # upcoming function
+		home()
 	elif userChoice == 2:
-		updateUser() 
+		updateUser()
 	elif userChoice == 3:
 		exiting()
 	else:
@@ -410,7 +412,7 @@ def updateBook():
             notBook(bookId)
 
     elif userChoice == 5:
-        home() # upcoming function
+        home()
     elif userChoice == 6:
         modifyBook()
     elif userChoice == 7:
@@ -428,9 +430,9 @@ def issueBookMenu():
     
     # User choices handling
     if userChoice == 1:
-        home() # upcoming function
+        home()
     elif userChoice == 2:
-        admin() # upcoming function
+        admin()
     elif userChoice == 3:
         exiting()
     else:
@@ -491,9 +493,9 @@ def returnBookMenu():
     print("--------------------------")
 
     if userChoice == 1:
-        home() # upcoming function
+        home()
     elif userChoice == 2:
-        admin() # upcoming function
+        admin()
     elif userChoice == 3:
         exiting()
     else:
@@ -574,7 +576,7 @@ def addUserMenu():
     print("--------------------------")
 
     if userChoice == 1:
-        home() # upcoming function
+        home()
     elif userChoice == 2:
         modifyUser()
     elif userChoice == 3:
@@ -621,7 +623,7 @@ def deleteUserMenu():
     print("--------------------------")
 
     if userChoice == 1:
-        home() # upcoming function
+        home()
     elif userChoice == 2:
         modifyUser()
     elif userChoice == 3:
@@ -671,7 +673,7 @@ def updateUserMenu():
     print("--------------------------")
 
     if userChoice == 1:
-        home() # upcoming function
+        home()
     elif userChoice == 2:
         updateUser()
     elif userChoice == 3:
@@ -776,14 +778,13 @@ def updateUser():
             notUser(userId)
 
     elif userChoice == 6:
-        home() # upcoming function
+        home()
     elif userChoice == 7:
         modifyUser()
     elif userChoice == 8:
         exiting()
     else:
         validOption()
-
 
 # Function to modify users (add, delete, update)
 def modifyUser():
@@ -806,9 +807,9 @@ def modifyUser():
     elif userChoice == 3:
         updateUser()
     elif userChoice == 4:
-        home() # upcoming function
+        home()
     elif userChoice == 5:
-        admin() # upcoming function
+        admin()
     elif userChoice == 6:
         exiting()
     else:
@@ -823,9 +824,9 @@ def displayUsersMenu():
 
     # User choices handling
     if userChoice == 1:
-        home() # upcoming function
+        home()
     elif userChoice == 2:
-        admin() # upcoming function
+        admin()
     elif userChoice == 3:
         exiting()
     else:
@@ -866,7 +867,7 @@ def searchUsersMenu():
     userChoice = int(input("Enter your Choice to Continue : "))
 
     if userChoice == 1:
-        home() # upcoming function
+        home()
     elif userChoice == 2:
         searchUsers()
     elif userChoice == 3:
@@ -950,9 +951,9 @@ def searchUsers():
     elif userChoice == 2:
         searchUsersbyKeyword()
     elif userChoice == 3:
-        home() # upcoming function
+        home()
     elif userChoice == 4:
-        admin() # upcoming function
+        admin()
     elif userChoice == 5:
         exiting()
     else:
@@ -979,9 +980,9 @@ def modifyBook():
     elif userChoice == 3:
         updateBook()
     elif userChoice == 4:
-        home() # upcoming function
+        home()
     elif userChoice == 5:
-        admin() # upcoming function
+        admin()
     elif userChoice == 6:
         exiting()
     else:
@@ -1004,13 +1005,13 @@ def notes():
     if userChoice == 1:
         modifyNote()
     elif userChoice == 2:
-        displayNotes() # upcoming function
+        displayNotes()
     elif userChoice == 3:
-        searchNotes() # upcoming function
+        searchNotes()
     elif userChoice == 4:
-        home() # upcoming function
+        home()
     elif userChoice == 5:
-        user() # upcoming function
+        user()
     elif userChoice == 6:
         exiting()
     else:
@@ -1025,7 +1026,7 @@ def addNoteMenu():
     print("--------------------------")
 
     if userChoice == 1:
-        home() # upcoming function
+        home()
     elif userChoice == 2:
         modifyNote()
     elif userChoice == 3:
@@ -1071,7 +1072,7 @@ def deleteNoteMenu():
     print("--------------------------")
 
     if userChoice == 1:
-        home() # upcoming function
+        home()
     elif userChoice == 2:
         modifyNote()
     elif userChoice == 3:
@@ -1121,7 +1122,7 @@ def updateNotesMenu():
     print("--------------------------")
 
     if userChoice == 1:
-        home() # upcoming function
+        home()
     elif userChoice == 2:
         updateNotes()
     elif userChoice == 3:
@@ -1205,7 +1206,7 @@ def updateNotes():
             notNoteNumber(noteNumber)
 
     elif userChoice == 4:
-        home() # upcoming function
+        home()
     elif userChoice == 5:
         modifyNote()
     elif userChoice == 6:
@@ -1234,10 +1235,397 @@ def modifyNote():
     elif userChoice == 3:
         updateNotes()
     elif userChoice == 4:
-        home() # upcoming function
+        home()
     elif userChoice == 5:
         notes()
     elif userChoice == 6:
         exiting()
     else:
         validOption()
+
+
+# Function to display notes
+def displayNotesMenu():
+    print("1. Home")
+    print("2. Back")
+    print("3. Exit")
+    userChoice = int(input("Enter your Choice to Continue : "))
+    print("--------------------------")
+
+    if userChoice == 1:
+        home()
+    elif userChoice == 2:
+        notes()
+    elif userChoice == 3:
+        exiting()
+    else:
+        validOption()
+
+# Function to display all notes
+def displayNotes():
+    print("--------------------------")
+    print("Display Notes")
+    print("--------------------------")
+    c.execute("SELECT * FROM notes WHERE userId=%s ORDER BY noteNumber", (USERID,))
+    result = c.fetchall()
+    db.commit()
+
+    if result:
+        print("Notes available in the Digital Library are :")
+        i = 0
+        for row in result:
+            i += 1
+            r = length(i)
+            print(f"{i}. Note Number : {row[1]}")
+            print(" " * r + f"Note Title : {row[2]}")
+            print(" " * r + f"Note Description : {row[3]}")
+            print("--------------------------")
+        displayNotesMenu()
+    else:
+        print("No notes found.")
+        print("--------------------------")
+        displayNotesMenu()
+
+# Function to display search notes menu
+def searchNotesMenu():
+    print("1. Home")
+    print("2. Back")
+    print("3. Exit")
+    userChoice = int(input("Enter your Choice to Continue : "))
+    print("--------------------------")
+
+    if userChoice == 1:
+        home()
+    elif userChoice == 2:
+        searchNotes()
+    elif userChoice == 3:
+        exiting()
+    else:
+        validOption()
+
+
+# Function to search notes by note number
+def searchNotesbyNoteNumber():
+    print("--------------------------")
+    print("Search Notes by Note Number")
+    print("--------------------------")
+    noteNumber = int(input("Enter the Note Number to search the Note : "))
+
+    c.execute("SELECT * FROM notes WHERE userId=%s AND noteNumber=%s", (USERID, noteNumber))
+    result = c.fetchall()
+    db.commit()
+
+    if result:
+        print(f'Note available in the Digital Library with the Note Number "{noteNumber}" is :')
+        i = 0
+        for row in result:
+            i += 1
+            r = length(i)
+            print(f"{i}. Note Number : {row[1]}")
+            print(" " * r + f"Note Title : {row[2]}")
+            print(" " * r + f"Note Description : {row[3]}")
+            print("--------------------------")
+        searchNotesMenu()
+    else:
+        print(f'No note found with the note number "{noteNumber}".')
+        print("--------------------------")
+        searchNotesMenu()
+
+# Function to search notes by keyword
+def searchNotesbyKeyword():
+    print("--------------------------")
+    print("Search Notes by Keyword")
+    print("--------------------------")
+    keyword = input("Enter a Keyword to search Notes : ")
+
+    c.execute("SELECT * FROM notes WHERE userId=%s AND noteTitle LIKE '%{}%' ORDER BY noteNumber".format(keyword), (USERID,))
+    result = c.fetchall()
+    db.commit()
+
+    if result:
+        print(f'Notes available in the Digital Library with the Keyword "{keyword}" are :')
+        i = 0
+        for row in result:
+            i += 1
+            r = length(i)
+            print(f"{i}. Note Number : {row[1]}")
+            print(" " * r + f"Note Title : {row[2]}")
+            print(" " * r + f"Note Description : {row[3]}")
+            print("--------------------------")
+        searchNotesMenu()
+    else:
+        print(f'No notes found with the keyword "{keyword}".')
+        print("--------------------------")
+        searchNotesMenu()
+
+# Function to search notes
+def searchNotes():
+    print("--------------------------")
+    print("Search Notes")
+    print("--------------------------")
+    print("1. Search by Note Number")
+    print("2. Search by Keyword")
+    print("3. Home")
+    print("4. Back")
+    print("5. Exit")
+    userChoice = int(input("Enter your Choice to Continue : "))
+    print("--------------------------")
+
+    if userChoice == 1:
+        searchNotesbyNoteNumber()
+    elif userChoice == 2:
+        searchNotesbyKeyword()
+    elif userChoice == 3:
+        home()
+    elif userChoice == 4:
+        notes()
+    elif userChoice == 5:
+        exiting()
+    else:
+        validOption()
+
+def changeAdminMenu():
+    print("1. Home")
+    print("2. Back")
+    print("3. Exit")
+    userChoice = int(input("Enter your Choice to Continue : "))
+    print("--------------------------")
+
+    if userChoice == 1:
+        home()
+    elif userChoice == 2:
+        admin()
+    elif userChoice == 3:
+        exiting()
+    else:
+        validOption()
+
+def changeAdmin():
+    print("--------------------------")
+    print("Change Admin")
+    print("--------------------------")
+    newAdminId = int(input("Enter the New Admin's User ID : "))
+    newAdminPassword = input("Enter the New Admin's Password : ")
+    choice = input("Are you sure to change the Admin? (Yes/No) : ")
+    print("--------------------------")
+
+    c.execute("SELECT password FROM users WHERE userId=%s", (newAdminId,))
+    result = c.fetchall()
+    db.commit()
+
+    if choice.lower() in ["yes", "y"]:
+        if len(result) == 0:
+            print("Please enter a valid user id!")
+        else:
+            if newAdminPassword == result[0][0]:
+                c.execute("UPDATE users SET adminStatus='not admin' WHERE adminStatus ='admin'")
+                c.execute("UPDATE users SET adminStatus='admin' WHERE userId=%s", (newAdminId,))
+                db.commit()
+
+                print("Admin Changed Successfully!")
+                print("--------------------------")
+                changeAdminMenu()
+            else:
+                print("Please enter a valid password!")
+    elif choice.lower() in ["no", "n"]:
+        print("Admin Not Changed!")
+        print("--------------------------")
+        changeAdminMenu()
+    else:
+        validOption()
+
+def authAdmin():
+    print("--------------------------")
+    print("Admin Authentication")
+    print("--------------------------")
+    adminId = int(input("Enter the Admin's User ID : "))
+    adminPassword = input("Enter the Admin's User Password : ")
+
+    c.execute("SELECT password FROM users WHERE userId=%s", (adminId,))
+    result = c.fetchall()
+    db.commit()
+
+    if len(result) == 0:
+        print("--------------------------")
+        print("Please enter a valid user id!")
+        print("--------------------------")
+    else:
+        if adminPassword == result[0][0]:
+            global USERID
+            USERID = adminId
+            print("\033[0;35m--------------------------\033[0;0m")
+            print("\033[0;36mAdmin is verified successfully.\033[0;0m")
+            print("\033[0;35m--------------------------\033[0;0m")
+            admin()
+        else:
+            print("Please enter a valid password!")
+            print("--------------------------")
+
+def admin():
+    print("--------------------------")
+    print("Admin")
+    print("--------------------------")
+    print("1.  Login into User Panel")
+    print("2.  Modify User")
+    print("3.  Display Users")
+    print("4.  Search Users")
+    print("5.  Modify Book")
+    print("6.  Issue Book")
+    print("7.  Return Book")
+    print("8.  Change Admin")
+    print("9.  Home")
+    print("10. Back")
+    print("11. Exit")
+    userChoice = int(input("Enter your Choice to Continue : "))
+    print("--------------------------")
+
+    if userChoice == 1:
+        user()
+    elif userChoice == 2:
+        modifyUser()
+    elif userChoice == 3:
+        displayUsers()
+    elif userChoice == 4:
+        searchUsers()
+    elif userChoice == 5:
+        modifyBook()
+    elif userChoice == 6:
+        issueBook()
+    elif userChoice == 7:
+        returnBook()
+    elif userChoice == 8:
+        changeAdmin()
+    elif userChoice == 9:
+        home()
+    elif userChoice == 10:
+        authAdmin()
+    elif userChoice == 11:
+        exiting()
+    else:
+        validOption()
+
+
+def authUser():
+    print("--------------------------")
+    print("User Authentication")
+    print("--------------------------")
+    userId = int(input("Enter the User ID : "))
+    password = input("Enter the User Password : ")
+
+    c.execute("SELECT password FROM users WHERE userId=%s", (userId,))
+    result = c.fetchall()
+    db.commit()
+
+    if len(result) == 0:
+        print("--------------------------")
+        print("Please enter a valid user id!")
+        print("--------------------------")
+    else:
+        if password == result[0][0]:
+            global USERID
+            USERID = userId
+            print("\033[0;35m--------------------------\033[0;0m")
+            print("\033[0;36mUser is verified successfully.\033[0;0m")
+            print("\033[0;35m--------------------------\033[0;0m")
+            user()
+        else:
+            print("Please Enter a Valid Password!")
+            print("--------------------------")
+
+def user():
+    print("--------------------------")
+    print("User")
+    print("--------------------------")
+    print("1.  Login into Admin Panel")
+    print("2.  About the Library")
+    print("3.  Display Books")
+    print("4.  Search Books")
+    print("5.  Issued Books Details")
+    print("6.  Notes")
+    print("7.  Home")
+    print("8.  Back")
+    print("9.  Exit")
+    userChoice = int(input("Enter your Choice to Continue : "))
+    print("--------------------------")
+
+    if userChoice == 1:
+        admin()
+    elif userChoice == 2:
+        aboutLibrary()
+    elif userChoice == 3:
+        displayBooks()
+    elif userChoice == 4:
+        searchBooks()
+    elif userChoice == 5:
+        issuedBooksDetails()
+    elif userChoice == 6:
+        notes()
+    elif userChoice == 7:
+        home()
+    elif userChoice == 8:
+        authUser()
+    elif userChoice == 9:
+        exiting()
+    else:
+        validOption()
+
+
+def issuedBooksDetails():
+    print("--------------------------")
+    print("Issued Books Details")
+    print("--------------------------")
+    returnPolicy()
+
+    c.execute("SELECT * FROM issuedBooksDetails WHERE userId=%s ORDER BY bookId", (USERID,))
+    result = c.fetchall()
+    db.commit()
+
+    if result == []:
+        print("No Books Issued!")
+        print("--------------------------")
+        userMenu()
+    else:
+        i = 0
+        for row in result:
+            i += 1
+            r = length(i)
+            print(f"{i}. Book ID : {row[1]}")
+            print(" " * r + "Book Name : ", row[2])
+            print(" " * r + "Issue Date : ", row[3])
+            print(" " * r + "Issue Time : ", row[4])
+            print(" " * r + "Return Date : ", row[5])
+            print(" " * r + "Return Time : ", row[6])
+            print(" " * r + "Fine(in Rs.) : ", row[7])
+            print("--------------------------")
+        userMenu()
+
+
+def home():
+    while True:
+        print("==========================")
+        print("\033[1;32m~~~~~~~~~~~~~~~~~~~~~~~~~~\033[0;0m")
+        print("\033[1;31m"+ pyfiglet.figlet_format("Welcome to the", font="banner3",width=1000))
+        print(pyfiglet.figlet_format("Digital Library", font="banner3",width=1000)+ "\033[0;0m")
+        print("\033[1;32m~~~~~~~~~~~~~~~~~~~~~~~~~~\033[0;0m")
+        print("==========================")
+        print("--------------------------")
+        print("Home")
+        print("--------------------------")
+        print("1. Admin")
+        print("2. User")
+        print("3. Exit")
+        userChoice = int(input("Enter your Choice to Continue : "))
+        print("--------------------------")
+        # Handle user choices
+        if userChoice == 1:
+            authAdmin()
+        elif userChoice == 2:
+            authUser()
+        elif userChoice == 3:
+            exiting()
+        else:
+            validOption()
+
+
+# Call the main menu function
+home()
